@@ -1,0 +1,25 @@
+<div class="bg-white shadow-sm rounded-lg">
+  <div class="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
+    <div>
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Purchase Order Details</h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">View the details of this purchase order.</p>
+    </div>
+    <div class="flex space-x-3">
+      <%= link_to "Edit", edit_purchase_order_path(@purchase_order), class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <%= link_to "Back to List", purchase_orders_path, class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    </div>
+  </div>
+
+  <div class="px-4 py-5 sm:p-6">
+    <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+      <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Purchase Order Number</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @purchase_order.purchase_order_number %></dd>
+      </div>
+      <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Order Type</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @purchase_order.order_type %></dd>
+      </div>
+    </dl>
+  </div>
+</div>

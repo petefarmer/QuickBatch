@@ -1,0 +1,37 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-2xl font-semibold text-gray-900">Admin Panel</h1>
+      <p class="mt-2 text-sm text-gray-700">Manage your application settings and configurations.</p>
+    </div>
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      <%= link_to "Back to Dashboard", root_path, class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+    </div>
+  </div>
+
+  <div class="mt-8 space-y-6">
+    <div class="bg-white shadow sm:rounded-lg">
+      <div class="px-4 py-5 sm:p-6">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Item Types Management</h3>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
+          <p>Manage your item types, including creating, editing, and deleting item type records.</p>
+        </div>
+        <div class="mt-5">
+          <%= link_to "Manage Item Types", admin_item_types_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow sm:rounded-lg">
+      <div class="px-4 py-5 sm:p-6">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Item Subtypes Management</h3>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
+          <p>Manage your item subtypes, including creating, editing, and deleting item subtype records.</p>
+        </div>
+        <div class="mt-5">
+          <%= link_to "Manage Item Subtypes", admin_item_subtypes_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
