@@ -7,8 +7,6 @@
  * depending on specificity.
  *
  * Consider organizing styles into separate files for maintainability.
+ *
+ *= require_self
  */
-
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
