@@ -22,9 +22,24 @@ Rails.application.routes.draw do
   resources :purchase_orders
 
   namespace :admin do
+    get "price_groups/index"
+    get "price_groups/show"
+    get "price_groups/new"
+    get "price_groups/edit"
+    get "price_groups/create"
+    get "price_groups/update"
+    get "price_groups/destroy"
+    get "order_methods/index"
+    get "order_methods/new"
+    get "order_methods/create"
+    get "order_methods/edit"
+    get "order_methods/update"
+    get "order_methods/destroy"
     get 'index'
     resources :item_types
     resources :item_subtypes
+    resources :order_methods
+    resources :price_groups
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

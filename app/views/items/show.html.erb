@@ -1,9 +1,5 @@
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="sm:flex sm:items-center">
-    <div class="sm:flex-auto">
-      <h1 class="text-2xl font-semibold text-gray-900">Item Details</h1>
-      <p class="mt-2 text-sm text-gray-700">Viewing details for item <%= @item.item_key %>.</p>
-    </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
       <%= link_to "Back to Items", items_path, class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
     </div>
@@ -13,8 +9,6 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
       <div class="md:col-span-1">
         <div class="px-4 sm:px-0">
-          <h3 class="text-lg font-medium leading-6 text-gray-900">Item Information</h3>
-          <p class="mt-1 text-sm text-gray-600">Basic details for your item.</p>
         </div>
       </div>
       <div class="mt-5 md:mt-0 md:col-span-2">
@@ -42,7 +36,7 @@
     </div>
   </div>
 
-  <div class="mt-8" data-controller="tabs">
+  <div class="mt-8" data-controller="tabs" data-tabs-initial-tab-value="item-master">
     <div class="border-b border-gray-200">
       <nav class="-mb-px flex space-x-8" aria-label="Tabs">
         <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="item-master" class="border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
@@ -63,41 +57,125 @@
       <div class="bg-white shadow sm:rounded-lg">
         <div class="px-4 py-5 sm:p-6">
           <div data-tabs-target="panel" data-tab="item-master" class="space-y-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Item Type</label>
-              <div class="mt-1 text-sm text-gray-900">
-                <% if @item.item_type %>
-                  <%= link_to @item.item_type.name, item_type_path(@item.item_type), class: "text-indigo-600 hover:text-indigo-900" %>
-                <% else %>
-                  <span class="text-gray-500">Not set</span>
-                <% end %>
-                <%= link_to "Change", edit_item_path(@item), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+              <div class="sm:col-span-1">
+                <label class="block text-sm font-medium text-gray-700">Item Type</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <% if @item.item_type %>
+                    <%= link_to @item.item_type.name, item_type_path(@item.item_type), class: "text-indigo-600 hover:text-indigo-900" %>
+                  <% else %>
+                    <span class="text-gray-500">Not set</span>
+                  <% end %>
+                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <%= @item.item_type&.description || "No description available" %>
+                </div>
               </div>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Item Subtype</label>
-              <div class="mt-1 text-sm text-gray-900">
-                <% if @item.item_subtype %>
-                  <%= link_to @item.item_subtype.name, admin_item_subtype_path(@item.item_subtype), class: "text-indigo-600 hover:text-indigo-900" %>
-                <% else %>
-                  <span class="text-gray-500">Not set</span>
-                <% end %>
-                <%= link_to "Change", edit_item_path(@item), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+              <div class="sm:col-span-1">
+                <label class="block text-sm font-medium text-gray-700">Item Subtype</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <% if @item.item_subtype %>
+                    <%= link_to @item.item_subtype.name, admin_item_subtype_path(@item.item_subtype), class: "text-indigo-600 hover:text-indigo-900" %>
+                  <% else %>
+                    <span class="text-gray-500">Not set</span>
+                  <% end %>
+                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <%= @item.item_subtype&.description || "No description available" %>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div data-tabs-target="panel" data-tab="stocking-description" class="hidden">
-            <p class="text-sm text-gray-500">Stocking description content will go here.</p>
-          </div>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+              <div class="sm:col-span-1">
+                <label class="block text-sm font-medium text-gray-700">Order Method</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <% if @item.order_method %>
+                    <%= link_to @item.order_method.name, admin_order_method_path(@item.order_method), class: "text-indigo-600 hover:text-indigo-900" %>
+                  <% else %>
+                    <span class="text-gray-500">Not set</span>
+                  <% end %>
+                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <%= @item.order_method&.description || "No description available" %>
+                </div>
+              </div>
+            </div>
 
-          <div data-tabs-target="panel" data-tab="serial-lot" class="hidden">
-            <p class="text-sm text-gray-500">Serial lot content will go here.</p>
-          </div>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+              <div class="sm:col-span-1">
+                <label class="block text-sm font-medium text-gray-700">Price Group</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <% if @item.price_group %>
+                    <%= link_to @item.price_group.name, admin_price_group_path(@item.price_group), class: "text-indigo-600 hover:text-indigo-900" %>
+                  <% else %>
+                    <span class="text-gray-500">Not set</span>
+                  <% end %>
+                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <div class="mt-1 text-sm text-gray-900">
+                  <%= @item.price_group&.description || "No description available" %>
+                </div>
+              </div>
+            </div>
 
-          <div data-tabs-target="panel" data-tab="material" class="hidden">
-            <p class="text-sm text-gray-500">Material content will go here.</p>
+            <div data-tabs-target="panel" data-tab="stocking-description" class="hidden">
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Stock Unit</label>
+                  <div class="mt-1 text-sm text-gray-900">
+                    <% if @item.stock_unit.present? %>
+                      <%= @item.stock_unit %>
+                    <% else %>
+                      <span class="text-gray-500">Not set</span>
+                    <% end %>
+                    <%= link_to "Change", edit_item_path(@item, tab: "stocking-description"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div data-tabs-target="panel" data-tab="serial-lot" class="hidden">
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Serial Lot Information</label>
+                  <div class="mt-1 text-sm text-gray-900">
+                    <span class="text-gray-500">Not set</span>
+                    <%= link_to "Change", edit_item_path(@item, tab: "serial-lot"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div data-tabs-target="panel" data-tab="material" class="hidden">
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Material Information</label>
+                  <div class="mt-1 text-sm text-gray-900">
+                    <span class="text-gray-500">Not set</span>
+                    <%= link_to "Change", edit_item_path(@item, tab: "material"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -105,6 +183,6 @@
   </div>
 
   <div class="mt-6 flex justify-end space-x-3">
-    <%= link_to "Edit", edit_item_path(@item), class: "inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+    <%= link_to "Edit", edit_item_path(@item, tab: "item-master"), class: "inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
   </div>
 </div>

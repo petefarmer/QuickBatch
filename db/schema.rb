@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_112528) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_20_165234) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,6 +43,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_112528) do
     t.datetime "updated_at", null: false
     t.integer "item_type_id"
     t.integer "item_subtype_id"
+    t.string "stock_unit", default: "kg"
+    t.string "purchase_unit", default: "kg"
+    t.string "sales_unit", default: "kg"
+    t.string "production_unit", default: "kg"
+    t.string "order_method"
+    t.bigint "order_method_id"
+    t.bigint "price_group_id"
+    t.index ["order_method_id"], name: "index_items_on_order_method_id"
+    t.index ["price_group_id"], name: "index_items_on_price_group_id"
+  end
+
+  create_table "order_methods", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "price_groups", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "purchase_orders", force: :cascade do |t|
@@ -61,4 +84,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_112528) do
 
   add_foreign_key "items", "item_subtypes"
   add_foreign_key "items", "item_types"
+  add_foreign_key "items", "order_methods"
+  add_foreign_key "items", "price_groups"
 end

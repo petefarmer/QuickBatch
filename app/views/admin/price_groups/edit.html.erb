@@ -1,0 +1,26 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold text-gray-900">Edit Price Group</h1>
+      <p class="mt-2 text-sm text-gray-700">Update the price group information below.</p>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+      <div class="md:col-span-1">
+        <div class="px-4 sm:px-0">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Price Group Information</h3>
+          <p class="mt-1 text-sm text-gray-600">Update the name and description for this price group.</p>
+        </div>
+      </div>
+      <div class="mt-5 md:mt-0 md:col-span-2">
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+          <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+            <%= render "form", price_group: @price_group %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

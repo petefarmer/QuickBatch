@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    @active_tab = "item-master"
   end
 
   def edit
@@ -30,7 +31,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to @item, notice: 'Item was successfully updated.'
+      redirect_to item_path(@item, tab: params[:tab]), notice: 'Item was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -48,6 +49,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:item_key, :upc_key, :description, :item_type_id, :item_subtype_id)
+    params.require(:item).permit(:item_key, :upc_key, :description, :item_type_id, :item_subtype_id, :order_method_id, :price_group_id, :stock_unit)
   end
 end
