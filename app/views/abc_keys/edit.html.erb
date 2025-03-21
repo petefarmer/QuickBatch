@@ -1,0 +1,16 @@
+<% content_for :title, "Editing abc key" %>
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold text-gray-900">Edit ABC Key</h1>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <%= render "form", abc_key: @abc_key %>
+  </div>
+
+  <%= link_to "Show this abc key", @admin_abc_key, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to abc keys", admin_abc_keys_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+</div>

@@ -155,6 +155,22 @@
                       </div>
                     </td>
                   </tr>
+
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">ABC Key:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.abc_key&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.abc_key&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>

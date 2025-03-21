@@ -46,10 +46,10 @@
                 <span class="text-gray-400">Not set</span>
               <% end %>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-              <%= link_to "View", item, class: "text-indigo-600 hover:text-indigo-900", data: { turbo: false, clickable_row_target: "link" } %>
-              <%= link_to "Edit", edit_item_path(item), class: "text-indigo-600 hover:text-indigo-900", data: { turbo: false, clickable_row_target: "link" } %>
-              <%= delete_button_to "Delete", item, data: { clickable_row_target: "link" } %>
+            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+              <%= link_to "View", item, class: "text-indigo-600 hover:text-indigo-900" %>
+              <%= link_to "Edit", edit_item_path(item), class: "text-indigo-600 hover:text-indigo-900" %>
+              <%= delete_button_to "Delete", item_path(item), resource_name: "Item", data: { clickable_row_target: "link" } %>
             </td>
           </tr>
         <% end %>

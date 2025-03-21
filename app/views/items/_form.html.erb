@@ -151,6 +151,17 @@
                   </div>
                 </div>
               </div>
+
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                <div class="sm:col-span-1">
+                  <label class="block text-sm font-medium text-gray-700">ABC Key</label>
+                </div>
+                <div class="sm:col-span-2">
+                  <div class="mt-1">
+                    <%= f.collection_select :abc_key_id, AbcKey.all, :id, :name, { include_blank: "Select an ABC Key" }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div data-tabs-target="panel" data-tab="stocking-description" class="<%= active_tab != 'stocking-description' ? 'hidden' : '' %>">

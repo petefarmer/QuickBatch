@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_20_174745) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_21_102230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "abc_keys", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "commodity_keys", force: :cascade do |t|
     t.string "name"
@@ -59,6 +66,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_174745) do
     t.bigint "price_group_id"
     t.bigint "product_key_id"
     t.bigint "commodity_key_id"
+    t.bigint "abc_key_id"
+    t.index ["abc_key_id"], name: "index_items_on_abc_key_id"
     t.index ["commodity_key_id"], name: "index_items_on_commodity_key_id"
     t.index ["order_method_id"], name: "index_items_on_order_method_id"
     t.index ["price_group_id"], name: "index_items_on_price_group_id"

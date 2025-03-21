@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :customers
   resources :sales_orders
   resources :purchase_orders
+  resources :abc_keys
 
   namespace :admin do
     get "price_groups/index"
