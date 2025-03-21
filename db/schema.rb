@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_20_165234) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_20_174745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "commodity_keys", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "customer_key"
@@ -50,8 +57,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_165234) do
     t.string "order_method"
     t.bigint "order_method_id"
     t.bigint "price_group_id"
+    t.bigint "product_key_id"
+    t.bigint "commodity_key_id"
+    t.index ["commodity_key_id"], name: "index_items_on_commodity_key_id"
     t.index ["order_method_id"], name: "index_items_on_order_method_id"
     t.index ["price_group_id"], name: "index_items_on_price_group_id"
+    t.index ["product_key_id"], name: "index_items_on_product_key_id"
   end
 
   create_table "order_methods", force: :cascade do |t|
@@ -62,6 +73,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_165234) do
   end
 
   create_table "price_groups", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_keys", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -82,8 +100,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_165234) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "items", "commodity_keys"
   add_foreign_key "items", "item_subtypes"
   add_foreign_key "items", "item_types"
   add_foreign_key "items", "order_methods"
   add_foreign_key "items", "price_groups"
+  add_foreign_key "items", "product_keys"
 end

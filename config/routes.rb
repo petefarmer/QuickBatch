@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     resources :item_subtypes
     resources :order_methods
     resources :price_groups
+    resources :product_keys
+    resources :commodity_keys
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

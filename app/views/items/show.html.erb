@@ -56,126 +56,152 @@
     <div class="mt-4">
       <div class="bg-white shadow sm:rounded-lg">
         <div class="px-4 py-5 sm:p-6">
-          <div data-tabs-target="panel" data-tab="item-master" class="space-y-6">
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              <div class="sm:col-span-1">
-                <label class="block text-sm font-medium text-gray-700">Item Type</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <% if @item.item_type %>
-                    <%= link_to @item.item_type.name, item_type_path(@item.item_type), class: "text-indigo-600 hover:text-indigo-900" %>
-                  <% else %>
-                    <span class="text-gray-500">Not set</span>
-                  <% end %>
-                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-                </div>
-              </div>
-              <div class="sm:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Description</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <%= @item.item_type&.description || "No description available" %>
-                </div>
-              </div>
-            </div>
+          <div data-tabs-target="panel" data-tab="item-master">
+            <div class="max-w-lg mx-auto">
+              <table class="table-auto">
+                <tbody class="space-y-1">
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Item Type:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.item_type&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.item_type&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
 
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              <div class="sm:col-span-1">
-                <label class="block text-sm font-medium text-gray-700">Item Subtype</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <% if @item.item_subtype %>
-                    <%= link_to @item.item_subtype.name, admin_item_subtype_path(@item.item_subtype), class: "text-indigo-600 hover:text-indigo-900" %>
-                  <% else %>
-                    <span class="text-gray-500">Not set</span>
-                  <% end %>
-                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-                </div>
-              </div>
-              <div class="sm:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Description</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <%= @item.item_subtype&.description || "No description available" %>
-                </div>
-              </div>
-            </div>
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Item Subtype:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.item_subtype&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.item_subtype&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
 
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              <div class="sm:col-span-1">
-                <label class="block text-sm font-medium text-gray-700">Order Method</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <% if @item.order_method %>
-                    <%= link_to @item.order_method.name, admin_order_method_path(@item.order_method), class: "text-indigo-600 hover:text-indigo-900" %>
-                  <% else %>
-                    <span class="text-gray-500">Not set</span>
-                  <% end %>
-                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-                </div>
-              </div>
-              <div class="sm:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Description</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <%= @item.order_method&.description || "No description available" %>
-                </div>
-              </div>
-            </div>
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Order Method:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.order_method&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.order_method&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
 
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              <div class="sm:col-span-1">
-                <label class="block text-sm font-medium text-gray-700">Price Group</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <% if @item.price_group %>
-                    <%= link_to @item.price_group.name, admin_price_group_path(@item.price_group), class: "text-indigo-600 hover:text-indigo-900" %>
-                  <% else %>
-                    <span class="text-gray-500">Not set</span>
-                  <% end %>
-                  <%= link_to "Change", edit_item_path(@item, tab: "item-master"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-                </div>
-              </div>
-              <div class="sm:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Description</label>
-                <div class="mt-1 text-sm text-gray-900">
-                  <%= @item.price_group&.description || "No description available" %>
-                </div>
-              </div>
-            </div>
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Price Group:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.price_group&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.price_group&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
 
-            <div data-tabs-target="panel" data-tab="stocking-description" class="hidden">
-              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Stock Unit</label>
-                  <div class="mt-1 text-sm text-gray-900">
-                    <% if @item.stock_unit.present? %>
-                      <%= @item.stock_unit %>
-                    <% else %>
-                      <span class="text-gray-500">Not set</span>
-                    <% end %>
-                    <%= link_to "Change", edit_item_path(@item, tab: "stocking-description"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Product Key:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.product_key&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.product_key&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
 
-            <div data-tabs-target="panel" data-tab="serial-lot" class="hidden">
-              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Serial Lot Information</label>
-                  <div class="mt-1 text-sm text-gray-900">
-                    <span class="text-gray-500">Not set</span>
-                    <%= link_to "Change", edit_item_path(@item, tab: "serial-lot"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-                  </div>
-                </div>
-              </div>
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Commodity Key:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.commodity_key&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.commodity_key&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <div data-tabs-target="panel" data-tab="material" class="hidden">
-              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Material Information</label>
-                  <div class="mt-1 text-sm text-gray-900">
-                    <span class="text-gray-500">Not set</span>
-                    <%= link_to "Change", edit_item_path(@item, tab: "material"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-                  </div>
-                </div>
+    <div data-tabs-target="panel" data-tab="stocking-description" class="hidden">
+      <div class="bg-white shadow sm:rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <div class="sm:col-span-1">
+              <label class="block text-sm font-medium text-gray-700">Stock Unit</label>
+              <div class="mt-1 text-sm text-gray-900">
+                <% if @item.stock_unit.present? %>
+                  <%= @item.stock_unit %>
+                <% else %>
+                  <span class="text-gray-500">Not set</span>
+                <% end %>
+                <%= link_to "Change", edit_item_path(@item, tab: "stocking-description"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabs-target="panel" data-tab="serial-lot" class="hidden">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Serial Lot Information</label>
+          <div class="mt-1 text-sm text-gray-900">
+            <span class="text-gray-500">Not set</span>
+            <%= link_to "Change", edit_item_path(@item, tab: "serial-lot"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-tabs-target="panel" data-tab="material" class="hidden">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Material Information</label>
+          <div class="mt-1 text-sm text-gray-900">
+            <span class="text-gray-500">Not set</span>
+            <%= link_to "Change", edit_item_path(@item, tab: "material"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
           </div>
         </div>
       </div>
