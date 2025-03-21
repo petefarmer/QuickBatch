@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_21_102230) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_21_162431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_102230) do
     t.string "customer_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "eccn_keys", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_eccn_keys_on_name", unique: true
   end
 
   create_table "item_subtypes", force: :cascade do |t|
@@ -67,8 +75,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_102230) do
     t.bigint "product_key_id"
     t.bigint "commodity_key_id"
     t.bigint "abc_key_id"
+    t.bigint "eccn_key_id"
+    t.integer "physical_count_days"
+    t.string "manufacturer_code"
+    t.boolean "purchaseable", default: false, null: false
+    t.boolean "saleable", default: false, null: false
     t.index ["abc_key_id"], name: "index_items_on_abc_key_id"
     t.index ["commodity_key_id"], name: "index_items_on_commodity_key_id"
+    t.index ["eccn_key_id"], name: "index_items_on_eccn_key_id"
     t.index ["order_method_id"], name: "index_items_on_order_method_id"
     t.index ["price_group_id"], name: "index_items_on_price_group_id"
     t.index ["product_key_id"], name: "index_items_on_product_key_id"
@@ -110,6 +124,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_102230) do
   end
 
   add_foreign_key "items", "commodity_keys"
+  add_foreign_key "items", "eccn_keys"
   add_foreign_key "items", "item_subtypes"
   add_foreign_key "items", "item_types"
   add_foreign_key "items", "order_methods"

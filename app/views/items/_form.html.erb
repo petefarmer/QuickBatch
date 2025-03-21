@@ -146,8 +146,13 @@
                   <label class="block text-sm font-medium text-gray-700">Commodity Key</label>
                 </div>
                 <div class="sm:col-span-2">
-                  <div class="mt-1">
-                    <%= f.collection_select :commodity_key_id, CommodityKey.all, :id, :name, { include_blank: "Select a commodity key" }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                  <div class="mt-1 flex gap-4">
+                    <%= f.collection_select :commodity_key_id, CommodityKey.all, :id, :name, 
+                        { include_blank: "Select a commodity key" }, 
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                    <%= f.text_field :commodity_key_name, 
+                        placeholder: "Or enter a new Commodity Key",
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
                   </div>
                 </div>
               </div>
@@ -157,8 +162,73 @@
                   <label class="block text-sm font-medium text-gray-700">ABC Key</label>
                 </div>
                 <div class="sm:col-span-2">
+                  <div class="mt-1 flex gap-4">
+                    <%= f.collection_select :abc_key_id, AbcKey.all, :id, :name, 
+                        { include_blank: "Select an ABC Key" }, 
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                    <%= f.text_field :abc_key_name, 
+                        placeholder: "Or enter a new ABC Key",
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                <div class="sm:col-span-1">
+                  <label class="block text-sm font-medium text-gray-700">ECCN Key</label>
+                </div>
+                <div class="sm:col-span-2">
+                  <div class="mt-1 flex gap-4">
+                    <%= f.collection_select :eccn_key_id, EccnKey.all, :id, :name, 
+                        { include_blank: "Select an ECCN Key" }, 
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                    <%= f.text_field :eccn_key_name, 
+                        placeholder: "Or enter a new ECCN Key",
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                <div class="sm:col-span-1">
+                  <label class="block text-sm font-medium text-gray-700">Physical Count Days</label>
+                </div>
+                <div class="sm:col-span-2">
                   <div class="mt-1">
-                    <%= f.collection_select :abc_key_id, AbcKey.all, :id, :name, { include_blank: "Select an ABC Key" }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                    <%= f.number_field :physical_count_days,
+                        min: 0,
+                        placeholder: "Enter number of days",
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                <div class="sm:col-span-1">
+                  <label class="block text-sm font-medium text-gray-700">Manufacturer Code</label>
+                </div>
+                <div class="sm:col-span-2">
+                  <div class="mt-1">
+                    <%= f.text_field :manufacturer_code,
+                        placeholder: "Enter manufacturer code",
+                        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                <div class="sm:col-span-2 sm:col-start-2">
+                  <div class="space-y-2">
+                    <div class="flex items-center">
+                      <%= f.check_box :purchaseable,
+                          class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+                      <label class="ml-2 block text-sm text-gray-900">Purchaseable</label>
+                    </div>
+                    <div class="flex items-center">
+                      <%= f.check_box :saleable,
+                          class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+                      <label class="ml-2 block text-sm text-gray-900">Saleable</label>
+                    </div>
                   </div>
                 </div>
               </div>

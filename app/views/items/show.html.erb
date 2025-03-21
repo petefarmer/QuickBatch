@@ -171,6 +171,70 @@
                       </div>
                     </td>
                   </tr>
+
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">ECCN Key:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.eccn_key&.name || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        <%= @item.eccn_key&.description || "No description available" %>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Physical Count Days:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.physical_count_days || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        Number of days between physical counts
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0">
+                      <div class="text-sm font-medium text-gray-500">Manufacturer Code:</div>
+                    </td>
+                    <td class="w-32 py-1 px-0">
+                      <div class="text-sm text-gray-900">
+                        <%= @item.manufacturer_code || "Not set" %>
+                      </div>
+                    </td>
+                    <td class="py-1 pl-2">
+                      <div class="text-sm text-gray-500">
+                        Manufacturer's product code
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="align-baseline">
+                    <td class="w-20 py-1 pr-0"></td>
+                    <td colspan="2" class="py-1 px-0">
+                      <div class="text-sm text-gray-900 space-y-1">
+                        <div class="flex items-center">
+                          <div class="w-24">Purchaseable:</div>
+                          <div><%= @item.purchaseable ? "Yes" : "No" %></div>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-24">Saleable:</div>
+                          <div><%= @item.saleable ? "Yes" : "No" %></div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
