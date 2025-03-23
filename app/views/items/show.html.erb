@@ -246,30 +246,182 @@
     <div data-tabs-target="panel" data-tab="stocking-description" class="hidden">
       <div class="bg-white shadow sm:rounded-lg">
         <div class="px-4 py-5 sm:p-6">
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            <div class="sm:col-span-1">
-              <label class="block text-sm font-medium text-gray-700">Stock Unit</label>
-              <div class="mt-1 text-sm text-gray-900">
-                <% if @item.stock_unit.present? %>
-                  <%= @item.stock_unit %>
-                <% else %>
-                  <span class="text-gray-500">Not set</span>
-                <% end %>
-                <%= link_to "Change", edit_item_path(@item, tab: "stocking-description"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
-              </div>
-            </div>
+          <div class="max-w-lg mx-auto">
+            <table class="table-auto">
+              <tbody class="space-y-1">
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Stock Unit:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.stock_unit || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Unit used for stock tracking
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Production Unit:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.production_unit || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Unit used for production
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Purchase Unit:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.purchase_unit || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Unit used for purchasing
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Sales Unit:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.sales_unit || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Unit used for sales
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Height:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.height || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Item height in units
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Width:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.width || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Item width in units
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Length:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.length || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Item length in units
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Weight:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.weight || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Item weight in units
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
 
     <div data-tabs-target="panel" data-tab="serial-lot" class="hidden">
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Serial Lot Information</label>
-          <div class="mt-1 text-sm text-gray-900">
-            <span class="text-gray-500">Not set</span>
-            <%= link_to "Change", edit_item_path(@item, tab: "serial-lot"), class: "ml-2 text-sm text-indigo-600 hover:text-indigo-900" %>
+      <div class="bg-white shadow sm:rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <div class="max-w-lg mx-auto">
+            <table class="table-auto">
+              <tbody class="space-y-1">
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Track Serial Lot:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.track_serial_lot&.name || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Serial lot tracking method
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Auto Lot Tracking Method:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.auto_lot_tracking_method&.name || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      <%= @item.auto_lot_tracking_method&.description || "Method used for automatic lot tracking" %>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

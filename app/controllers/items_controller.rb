@@ -52,9 +52,14 @@ class ItemsController < ApplicationController
     params.require(:item).permit(
       :item_key, :upc_key, :description, :item_type_id, 
       :item_subtype_id, :order_method_id, :price_group_id,
-      :product_key_id, :commodity_key_id, :abc_key_id, :eccn_key_id, :stock_unit,
-      :abc_key_name, :commodity_key_name, :eccn_key_name, :physical_count_days, :manufacturer_code,
-      :purchaseable, :saleable
+      :product_key_id, :commodity_key_id, :abc_key_id, :eccn_key_id, :track_serial_lot_id,
+      :auto_lot_tracking_method_id,
+      :stock_unit, :production_unit, :purchase_unit, :sales_unit,
+      :height, :width, :length, :weight,
+      :abc_key_name, :commodity_key_name, :eccn_key_name, :track_serial_lot_name,
+      :physical_count_days, :manufacturer_code,
+      :purchaseable, :saleable,
+      :item_type_name, :item_subtype_name
     )
   end
 end

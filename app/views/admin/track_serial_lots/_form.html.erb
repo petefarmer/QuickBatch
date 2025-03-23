@@ -1,0 +1,54 @@
+<%= form_with(model: [:admin, track_serial_lot], class: "space-y-8 divide-y divide-gray-200") do |f| %>
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div class="pt-8">
+      <div>
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Track Serial Lot Information</h3>
+        <p class="mt-1 text-sm text-gray-500">Please provide the track serial lot details.</p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-4">
+          <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.text_field :name, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+          <% if track_serial_lot.errors[:name].any? %>
+            <p class="mt-2 text-sm text-red-600"><%= track_serial_lot.errors[:name].join(", ") %></p>
+          <% end %>
+        </div>
+
+        <div class="sm:col-span-6">
+          <%= f.label :description, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.text_area :description, rows: 3, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+          <% if track_serial_lot.errors[:description].any? %>
+            <p class="mt-2 text-sm text-red-600"><%= track_serial_lot.errors[:description].join(", ") %></p>
+          <% end %>
+        </div>
+
+        <div class="sm:col-span-4">
+          <%= f.label :auto_lot_tracking_method_id, "Auto Lot Tracking Method", class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.collection_select :auto_lot_tracking_method_id, 
+                AutoLotTrackingMethod.all, 
+                :id, 
+                :name,
+                { include_blank: "Select a tracking method" },
+                class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+          <% if track_serial_lot.errors.include?(:auto_lot_tracking_method) %>
+            <p class="mt-2 text-sm text-red-600"><%= track_serial_lot.errors.full_messages_for(:auto_lot_tracking_method).join(", ") %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-5">
+    <div class="flex justify-end">
+      <%= link_to "Cancel", admin_track_serial_lots_path, class: "rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+      <%= f.submit class: "ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+    </div>
+  </div>
+<% end %> 

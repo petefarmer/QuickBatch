@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :abc_keys
 
   namespace :admin do
+    root to: 'admin#index'
     get "price_groups/index"
     get "price_groups/show"
     get "price_groups/new"
@@ -36,13 +37,14 @@ Rails.application.routes.draw do
     get "order_methods/edit"
     get "order_methods/update"
     get "order_methods/destroy"
-    get 'index'
     resources :item_types
     resources :item_subtypes
     resources :order_methods
     resources :price_groups
     resources :product_keys
     resources :commodity_keys
+    resources :track_serial_lots
+    resources :auto_lot_tracking_methods
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

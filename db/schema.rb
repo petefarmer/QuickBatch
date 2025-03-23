@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_21_162431) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_23_131639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "abc_keys", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "auto_lot_tracking_methods", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -80,12 +87,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_162431) do
     t.string "manufacturer_code"
     t.boolean "purchaseable", default: false, null: false
     t.boolean "saleable", default: false, null: false
+    t.integer "height"
+    t.integer "width"
+    t.integer "length"
+    t.integer "weight"
+    t.bigint "track_serial_lot_id"
+    t.bigint "auto_lot_tracking_method_id"
     t.index ["abc_key_id"], name: "index_items_on_abc_key_id"
+    t.index ["auto_lot_tracking_method_id"], name: "index_items_on_auto_lot_tracking_method_id"
     t.index ["commodity_key_id"], name: "index_items_on_commodity_key_id"
     t.index ["eccn_key_id"], name: "index_items_on_eccn_key_id"
     t.index ["order_method_id"], name: "index_items_on_order_method_id"
     t.index ["price_group_id"], name: "index_items_on_price_group_id"
     t.index ["product_key_id"], name: "index_items_on_product_key_id"
+    t.index ["track_serial_lot_id"], name: "index_items_on_track_serial_lot_id"
   end
 
   create_table "order_methods", force: :cascade do |t|
@@ -123,6 +138,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_162431) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "track_serial_lots", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "items", "auto_lot_tracking_methods"
   add_foreign_key "items", "commodity_keys"
   add_foreign_key "items", "eccn_keys"
   add_foreign_key "items", "item_subtypes"
@@ -130,4 +153,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_162431) do
   add_foreign_key "items", "order_methods"
   add_foreign_key "items", "price_groups"
   add_foreign_key "items", "product_keys"
+  add_foreign_key "items", "track_serial_lots"
 end
