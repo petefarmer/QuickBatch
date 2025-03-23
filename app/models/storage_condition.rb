@@ -1,0 +1,2 @@
+class StorageCondition < ApplicationRecord
+end

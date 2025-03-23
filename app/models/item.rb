@@ -10,7 +10,8 @@ class Item < ApplicationRecord
   belongs_to :abc_key, optional: true
   belongs_to :eccn_key, optional: true
   belongs_to :track_serial_lot, optional: true
-  belongs_to :auto_lot_tracking_method, optional: true
+  belongs_to :auto_lot_issue_method, optional: true
+  belongs_to :storage_condition, optional: true
 
   validates :item_key, presence: true, uniqueness: true
   validates :upc_key, uniqueness: true, allow_blank: true
@@ -27,6 +28,7 @@ class Item < ApplicationRecord
   validates :manufacturer_code, length: { maximum: 255 }
   validates :purchaseable, inclusion: { in: [true, false] }
   validates :saleable, inclusion: { in: [true, false] }
+  validates :default_lot_size, numericality: { greater_than: 0, allow_nil: true }
 
   before_save :handle_abc_key_input
   before_save :handle_commodity_key_input

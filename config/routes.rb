@@ -43,8 +43,11 @@ Rails.application.routes.draw do
     resources :price_groups
     resources :product_keys
     resources :commodity_keys
+    resources :abc_keys
+    resources :eccn_keys
     resources :track_serial_lots
-    resources :auto_lot_tracking_methods
+    resources :auto_lot_issue_methods
+    resources :storage_conditions
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

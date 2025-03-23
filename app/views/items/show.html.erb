@@ -407,16 +407,48 @@
 
                 <tr class="align-baseline">
                   <td class="w-20 py-1 pr-0">
-                    <div class="text-sm font-medium text-gray-500">Auto Lot Tracking Method:</div>
+                    <div class="text-sm font-medium text-gray-500">Auto Lot Issue Method:</div>
                   </td>
                   <td class="w-32 py-1 px-0">
                     <div class="text-sm text-gray-900">
-                      <%= @item.auto_lot_tracking_method&.name || "Not set" %>
+                      <%= @item.auto_lot_issue_method&.name || "Not set" %>
                     </div>
                   </td>
                   <td class="py-1 pl-2">
                     <div class="text-sm text-gray-500">
-                      <%= @item.auto_lot_tracking_method&.description || "Method used for automatic lot tracking" %>
+                      <%= @item.auto_lot_issue_method&.description || "Method used for automatic lot issuing" %>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Default Lot Size:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.default_lot_size || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      Default size for lot tracking
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="align-baseline">
+                  <td class="w-20 py-1 pr-0">
+                    <div class="text-sm font-medium text-gray-500">Storage Condition:</div>
+                  </td>
+                  <td class="w-32 py-1 px-0">
+                    <div class="text-sm text-gray-900">
+                      <%= @item.storage_condition&.name || "Not set" %>
+                    </div>
+                  </td>
+                  <td class="py-1 pl-2">
+                    <div class="text-sm text-gray-500">
+                      <%= @item.storage_condition&.description || "Required storage condition for this item" %>
                     </div>
                   </td>
                 </tr>

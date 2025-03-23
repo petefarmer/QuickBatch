@@ -372,19 +372,55 @@
 
                     <tr class="align-baseline">
                       <td class="w-20 py-1 pr-0">
-                        <div class="text-sm font-medium text-gray-500">Auto Lot Tracking Method:</div>
+                        <div class="text-sm font-medium text-gray-500">Auto Lot Issue Method:</div>
                       </td>
                       <td colspan="2" class="py-1">
                         <div class="mt-1">
-                          <%= f.collection_select :auto_lot_tracking_method_id,
-                              AutoLotTrackingMethod.all,
+                          <%= f.collection_select :auto_lot_issue_method_id,
+                              AutoLotIssueMethod.all,
                               :id,
                               :name,
-                              { include_blank: "Select an auto lot tracking method" },
+                              { include_blank: "Select an auto lot issue method" },
                               class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
                         </div>
                         <div class="mt-1 text-sm text-gray-500">
-                          Select a method for automatic lot tracking
+                          Select a method for automatic lot issuing
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr class="align-baseline">
+                      <td class="w-20 py-1 pr-0">
+                        <div class="text-sm font-medium text-gray-500">Storage Condition:</div>
+                      </td>
+                      <td colspan="2" class="py-1">
+                        <div class="mt-1">
+                          <%= f.collection_select :storage_condition_id,
+                              StorageCondition.all,
+                              :id,
+                              :name,
+                              { include_blank: "Select a storage condition", selected: item.storage_condition_id },
+                              class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                        </div>
+                        <div class="mt-1 text-sm text-gray-500">
+                          Required storage condition for this item
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr class="align-baseline">
+                      <td class="w-20 py-1 pr-0">
+                        <div class="text-sm font-medium text-gray-500">Default Lot Size:</div>
+                      </td>
+                      <td colspan="2" class="py-1">
+                        <div class="mt-1">
+                          <%= f.number_field :default_lot_size,
+                              step: "0.01",
+                              min: "0",
+                              class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                        </div>
+                        <div class="mt-1 text-sm text-gray-500">
+                          Default size for lot tracking (e.g., 100.00)
                         </div>
                       </td>
                     </tr>
