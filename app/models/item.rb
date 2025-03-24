@@ -17,9 +17,9 @@ class Item < ApplicationRecord
   validates :upc_key, uniqueness: true, allow_blank: true
   validates :description, presence: true
   validates :stock_unit, presence: true
-  validates :production_unit, inclusion: { in: ['kg', 'lb', 'ea'] }, allow_nil: true
-  validates :purchase_unit, inclusion: { in: ['kg', 'lb', 'ea'] }, allow_nil: true
-  validates :sales_unit, inclusion: { in: ['kg', 'lb', 'ea'] }, allow_nil: true
+  validates :production_unit, inclusion: { in: ['kg', 'lb', 'oz','ea'] }, allow_nil: true
+  validates :purchase_unit, inclusion: { in: ['kg', 'lb', 'oz','ea'] }, allow_nil: true
+  validates :sales_unit, inclusion: { in: ['kg', 'lb', 'oz','ea'] }, allow_nil: true
   validates :height, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :width, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :length, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }

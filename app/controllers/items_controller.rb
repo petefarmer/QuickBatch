@@ -4,7 +4,31 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
     if params[:search].present?
-      @items = @items.where("item_key ILIKE ? OR upc_key ILIKE ? OR description ILIKE ?", 
+      @items = @items.where("
+        items.item_key ILIKE ? OR
+        items.upc_key ILIKE ? OR
+        items.description ILIKE ? OR
+        items.stock_unit ILIKE ? OR
+        items.production_unit ILIKE ? OR
+        items.purchase_unit ILIKE ? OR
+        items.sales_unit ILIKE ? OR
+        items.item_type_id IN (
+          SELECT id FROM item_types WHERE name ILIKE ?
+        ) OR
+        items.item_subtype_id IN (
+          SELECT id FROM item_subtypes WHERE name ILIKE ?
+        ) OR
+        items.auto_lot_issue_method_id IN (
+          SELECT id FROM auto_lot_issue_methods WHERE name ILIKE ?
+        ) OR
+        items.storage_condition_id IN (
+          SELECT id FROM storage_conditions WHERE name ILIKE ?
+        ) OR
+        items.default_lot_size::text ILIKE ?
+      ",
+        "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
+        "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
+        "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%",
         "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
   end

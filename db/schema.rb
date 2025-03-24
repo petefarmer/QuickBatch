@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_23_154523) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_24_120817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,38 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_154523) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address_type", null: false
+    t.string "country_code", null: false
+    t.string "format_type", null: false
+    t.string "street_address_1"
+    t.string "street_address_2"
+    t.string "city"
+    t.string "state_province"
+    t.string "postal_code"
+    t.string "attention"
+    t.string "company_name"
+    t.string "district"
+    t.string "subdivision"
+    t.string "building_name"
+    t.string "floor_number"
+    t.string "room_number"
+    t.string "post_office_box"
+    t.string "phone"
+    t.string "email"
+    t.boolean "is_default", default: false
+    t.text "notes"
+    t.string "addressable_type", null: false
+    t.bigint "addressable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id", "address_type"], name: "index_addresses_on_addressable_and_type"
+    t.index ["addressable_type", "addressable_id", "is_default"], name: "index_addresses_on_addressable_and_default"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+    t.index ["country_code"], name: "index_addresses_on_country_code"
+    t.index ["format_type"], name: "index_addresses_on_format_type"
   end
 
   create_table "auto_lot_issue_methods", force: :cascade do |t|
@@ -153,6 +185,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_154523) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "items", "auto_lot_issue_methods"

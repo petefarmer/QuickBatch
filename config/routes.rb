@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get "suppliers/index"
+  get "suppliers/show"
+  get "suppliers/new"
+  get "suppliers/edit"
+  get "suppliers/create"
+  get "suppliers/update"
+  get "suppliers/destroy"
+  devise_for :users
   get "admin/index"
   get "sales_orders/index"
   get "sales_orders/show"
@@ -14,10 +22,12 @@ Rails.application.routes.draw do
   get "customers/create"
   get "customers/update"
   get "customers/destroy"
-  root "items#index"
+  root "home#index"
   resources :items
   resources :item_types
-  resources :customers
+  resources :customers do
+    resources :addresses
+  end
   resources :sales_orders
   resources :purchase_orders
   resources :abc_keys
@@ -48,6 +58,19 @@ Rails.application.routes.draw do
     resources :track_serial_lots
     resources :auto_lot_issue_methods
     resources :storage_conditions
+    resources :addresses do
+      collection do
+        get :addressable_options
+      end
+    end
+  end
+
+  resources :vendors do
+    resources :addresses
+  end
+
+  resources :suppliers do
+    resources :addresses
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
