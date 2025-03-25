@@ -1,8 +1,8 @@
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="sm:flex sm:items-center">
     <div class="sm:flex-auto">
-      <h1 class="text-xl font-semibold text-gray-900">ABC Keys</h1>
-      <p class="mt-2 text-sm text-gray-700">A list of all ABC keys in the system.</p>
+      <h1 class="text-2xl font-semibold text-gray-900">ABC Keys</h1>
+      <p class="mt-2 text-sm text-gray-700">A list of all ABC Keys in the system.</p>
     </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
       <%= link_to "Add ABC Key", new_admin_abc_key_path, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
@@ -17,7 +17,6 @@
               <tr>
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Items Count</th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                   <span class="sr-only">Actions</span>
                 </th>
@@ -28,10 +27,9 @@
                 <tr>
                   <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= abc_key.name %></td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= abc_key.description %></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= abc_key.items.count %></td>
                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                     <%= link_to "Edit", edit_admin_abc_key_path(abc_key), class: "text-indigo-600 hover:text-indigo-900" %>
-                    <%= button_to "Delete", admin_abc_key_path(abc_key), method: :delete, class: "ml-3 text-red-600 hover:text-red-900", data: { turbo_confirm: "Are you sure you want to delete this ABC Key?" } %>
+                    <%= link_to "Delete", admin_abc_key_path(abc_key), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ml-4 text-red-600 hover:text-red-900" %>
                   </td>
                 </tr>
               <% end %>
