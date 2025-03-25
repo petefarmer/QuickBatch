@@ -1,10 +1,81 @@
-<div class="bg-white shadow-sm rounded-lg">
-  <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-    <h3 class="text-lg font-medium leading-6 text-gray-900">Edit Sales Order</h3>
-    <p class="mt-1 max-w-2xl text-sm text-gray-500">Update the sales order details.</p>
-  </div>
+<div class="min-h-screen bg-gray-100">
+  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-2xl font-semibold text-gray-900">Edit Sales Order</h1>
+          <p class="mt-2 text-sm text-gray-700">Update sales order information.</p>
+        </div>
+        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+          <%= link_to "Back to List", sales_orders_path, class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+        </div>
+      </div>
 
-  <div class="px-4 py-5 sm:p-6">
-    <%= render 'form', sales_order: @sales_order %>
+      <div class="mt-8">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div data-controller="tabs" data-tabs-initial-tab-value="order-entry">
+            <nav class="-mb-px flex space-x-8 border-b border-gray-200" aria-label="Tabs">
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="order-entry" class="border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Order Entry
+              </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="miscellaneous" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Miscellaneous
+              </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="address" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Address
+              </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="cust-info" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                CustInfo
+              </button>
+            </nav>
+
+            <%= form_with(model: @sales_order, local: true) do |f| %>
+              <div class="px-4 py-5 sm:p-6">
+                <div data-tabs-target="panel" data-tab="order-entry">
+                  <div class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+                    <div class="sm:col-span-1">
+                      <%= f.label :sales_order_number, class: "block text-sm font-medium text-gray-700" %>
+                      <%= f.text_field :sales_order_number, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                    </div>
+                    <div class="sm:col-span-1">
+                      <%= f.label :order_type, class: "block text-sm font-medium text-gray-700" %>
+                      <%= f.text_field :order_type, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+                    </div>
+                    <div class="sm:col-span-1">
+                      <%= f.label :customer_id, "Customer", class: "block text-sm font-medium text-gray-700" %>
+                      <%= f.collection_select :customer_id, Customer.all, :id, :customer_name, 
+                          { include_blank: "Select a customer" },
+                          { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", required: true } %>
+                    </div>
+                    <div class="sm:col-span-1">
+                      <label class="block text-sm font-medium text-gray-700">Customer Key</label>
+                      <div class="mt-1 text-sm text-gray-900">
+                        <%= @sales_order.customer&.customer_key || "Select a customer first" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div data-tabs-target="panel" data-tab="miscellaneous" class="hidden">
+                  <p class="text-gray-500">Miscellaneous form fields will be displayed here.</p>
+                </div>
+
+                <div data-tabs-target="panel" data-tab="address" class="hidden">
+                  <p class="text-gray-500">Address form fields will be displayed here.</p>
+                </div>
+
+                <div data-tabs-target="panel" data-tab="cust-info" class="hidden">
+                  <p class="text-gray-500">Customer information form fields will be displayed here.</p>
+                </div>
+              </div>
+
+              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <%= f.submit "Update Sales Order", class: "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

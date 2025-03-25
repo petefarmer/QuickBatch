@@ -1,25 +1,76 @@
-<div class="bg-white shadow-sm rounded-lg">
-  <div class="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
-    <div>
-      <h3 class="text-lg font-medium leading-6 text-gray-900">Sales Order Details</h3>
-      <p class="mt-1 max-w-2xl text-sm text-gray-500">View the details of this sales order.</p>
-    </div>
-    <div class="flex space-x-3">
-      <%= link_to "Edit", edit_sales_order_path(@sales_order), class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-      <%= link_to "Back to List", sales_orders_path, class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-    </div>
-  </div>
+<div class="min-h-screen bg-gray-100">
+  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-2xl font-semibold text-gray-900">Sales Order Details</h1>
+          <p class="mt-2 text-sm text-gray-700">View and manage sales order information.</p>
+        </div>
+        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+          <%= link_to "Edit", edit_sales_order_path(@sales_order), class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+          <%= link_to "Back to List", sales_orders_path, class: "ml-3 inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+        </div>
+      </div>
 
-  <div class="px-4 py-5 sm:p-6">
-    <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-      <div class="sm:col-span-1">
-        <dt class="text-sm font-medium text-gray-500">Sales Order Number</dt>
-        <dd class="mt-1 text-sm text-gray-900"><%= @sales_order.sales_order_number %></dd>
+      <div class="mt-8">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div data-controller="tabs" data-tabs-initial-tab-value="order-entry">
+            <nav class="-mb-px flex space-x-8 border-b border-gray-200" aria-label="Tabs">
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="order-entry" class="border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Order Entry
+              </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="miscellaneous" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Miscellaneous
+              </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="address" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                Address
+              </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tab="cust-info" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                CustInfo
+              </button>
+            </nav>
+
+            <div class="px-4 py-5 sm:p-6">
+              <div data-tabs-target="panel" data-tab="order-entry">
+                <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+                  <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Sales Order Number</dt>
+                    <dd class="mt-1 text-sm text-gray-900"><%= @sales_order.sales_order_number %></dd>
+                  </div>
+                  <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Order Type</dt>
+                    <dd class="mt-1 text-sm text-gray-900"><%= @sales_order.order_type %></dd>
+                  </div>
+                  <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Customer Key</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                      <%= link_to @sales_order.customer.customer_key, customer_path(@sales_order.customer), class: "text-indigo-600 hover:text-indigo-900" %>
+                    </dd>
+                  </div>
+                  <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Customer Name</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                      <%= link_to @sales_order.customer.customer_name, customer_path(@sales_order.customer), class: "text-indigo-600 hover:text-indigo-900" %>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div data-tabs-target="panel" data-tab="miscellaneous" class="hidden">
+                <p class="text-gray-500">Miscellaneous information will be displayed here.</p>
+              </div>
+
+              <div data-tabs-target="panel" data-tab="address" class="hidden">
+                <p class="text-gray-500">Address information will be displayed here.</p>
+              </div>
+
+              <div data-tabs-target="panel" data-tab="cust-info" class="hidden">
+                <p class="text-gray-500">Customer information will be displayed here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="sm:col-span-1">
-        <dt class="text-sm font-medium text-gray-500">Order Type</dt>
-        <dd class="mt-1 text-sm text-gray-900"><%= @sales_order.order_type %></dd>
-      </div>
-    </dl>
+    </div>
   </div>
 </div>

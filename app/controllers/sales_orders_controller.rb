@@ -49,6 +49,6 @@ class SalesOrdersController < ApplicationController
   end
 
   def sales_order_params
-    params.require(:sales_order).permit(:sales_order_number, :order_type)
+    params.require(:sales_order).permit(:sales_order_number, :order_type, :customer_id)
   end
 end

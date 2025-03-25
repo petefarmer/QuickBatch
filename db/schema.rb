@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_24_120817) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_120023) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -171,6 +171,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_24_120817) do
     t.string "order_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "customer_id", null: false
+    t.index ["customer_id"], name: "index_sales_orders_on_customer_id"
   end
 
   create_table "storage_conditions", force: :cascade do |t|
@@ -209,4 +211,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_24_120817) do
   add_foreign_key "items", "product_keys"
   add_foreign_key "items", "storage_conditions"
   add_foreign_key "items", "track_serial_lots"
+  add_foreign_key "sales_orders", "customers"
 end
