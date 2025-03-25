@@ -4,13 +4,11 @@ Rails.application.routes.draw do
 
   # Core resources
   resources :items
-  resources :item_types
   resources :customers do
     resources :addresses
   end
   resources :sales_orders
   resources :purchase_orders
-  resources :abc_keys
 
   # Financial Accounting
   resources :accounts do
@@ -28,17 +26,25 @@ Rails.application.routes.draw do
   # Admin namespace
   namespace :admin do
     root to: 'admin#index'
+    
+    # Item Management
     resources :item_types
     resources :item_subtypes
-    resources :order_methods
-    resources :price_groups
     resources :product_keys
     resources :commodity_keys
     resources :abc_keys
     resources :eccn_keys
+    
+    # Order Management
+    resources :order_methods
+    resources :price_groups
+    
+    # Inventory Management
     resources :track_serial_lots
     resources :auto_lot_issue_methods
     resources :storage_conditions
+    
+    # Address Management
     resources :addresses do
       collection do
         get :addressable_options
