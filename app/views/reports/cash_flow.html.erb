@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Cash Flow Statement</h3>
+          <div class="card-tools">
+            <span class="text-muted">For the period <%= @start_date.strftime("%B %d, %Y") %> to <%= @end_date.strftime("%B %d, %Y") %></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8 offset-md-2">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td colspan="2"><strong>Operating Activities</strong></td>
+                  </tr>
+                  <% @report[:operating_activities].each do |activity| %>
+                    <tr>
+                      <td><%= activity[:description] %></td>
+                      <td class="text-end"><%= number_to_currency(activity[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr class="table-info">
+                    <td><strong>Net Cash from Operating Activities</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:net_operating_cash]) %></strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Investing Activities</strong></td>
+                  </tr>
+                  <% @report[:investing_activities].each do |activity| %>
+                    <tr>
+                      <td><%= activity[:description] %></td>
+                      <td class="text-end"><%= number_to_currency(activity[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr class="table-info">
+                    <td><strong>Net Cash from Investing Activities</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:net_investing_cash]) %></strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Financing Activities</strong></td>
+                  </tr>
+                  <% @report[:financing_activities].each do |activity| %>
+                    <tr>
+                      <td><%= activity[:description] %></td>
+                      <td class="text-end"><%= number_to_currency(activity[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr class="table-info">
+                    <td><strong>Net Cash from Financing Activities</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:net_financing_cash]) %></strong></td>
+                  </tr>
+                  <tr class="table-primary">
+                    <td><strong>Net Change in Cash</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:net_cash_change]) %></strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

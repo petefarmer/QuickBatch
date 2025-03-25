@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">EBITDA Report</h3>
+          <div class="card-tools">
+            <span class="text-muted">For the period <%= @start_date.strftime("%B %d, %Y") %> to <%= @end_date.strftime("%B %d, %Y") %></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8 offset-md-2">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td colspan="2"><strong>Revenue</strong></td>
+                  </tr>
+                  <% @report[:revenue].each do |account| %>
+                    <tr>
+                      <td><%= account[:name] %></td>
+                      <td class="text-end"><%= number_to_currency(account[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr class="table-success">
+                    <td><strong>Total Revenue</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:total_revenue]) %></strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Operating Expenses</strong></td>
+                  </tr>
+                  <% @report[:operating_expenses].each do |account| %>
+                    <tr>
+                      <td><%= account[:name] %></td>
+                      <td class="text-end"><%= number_to_currency(account[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr class="table-danger">
+                    <td><strong>Total Operating Expenses</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:total_operating_expenses]) %></strong></td>
+                  </tr>
+                  <tr class="table-primary">
+                    <td><strong>EBITDA</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:ebitda]) %></strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>EBITDA Margin</strong></td>
+                    <td class="text-end"><strong><%= number_to_percentage(@report[:ebitda_margin], precision: 2) %></strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Transaction Details</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <table class="table">
+                <tr>
+                  <th>Date:</th>
+                  <td><%= @transaction.date.strftime("%B %d, %Y") %></td>
+                </tr>
+                <tr>
+                  <th>Description:</th>
+                  <td><%= @transaction.description %></td>
+                </tr>
+                <tr>
+                  <th>Amount:</th>
+                  <td class="<%= @transaction.amount >= 0 ? 'text-success' : 'text-danger' %>">
+                    <%= number_to_currency(@transaction.amount) %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Type:</th>
+                  <td><%= @transaction.transaction_type.titleize %></td>
+                </tr>
+                <tr>
+                  <th>Account:</th>
+                  <td><%= @transaction.account.name %></td>
+                </tr>
+                <tr>
+                  <th>Created At:</th>
+                  <td><%= @transaction.created_at.strftime("%B %d, %Y %H:%M") %></td>
+                </tr>
+                <tr>
+                  <th>Updated At:</th>
+                  <td><%= @transaction.updated_at.strftime("%B %d, %Y %H:%M") %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <%= link_to 'Edit', edit_transaction_path(@transaction), class: 'btn btn-primary' %>
+            <%= link_to 'Back to Transactions', transactions_path, class: 'btn btn-secondary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Balance Sheet</h3>
+          <div class="card-tools">
+            <span class="text-muted">As of <%= @date.strftime("%B %d, %Y") %></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Assets</h4>
+              <table class="table table-sm">
+                <tbody>
+                  <% @report[:assets].each do |account| %>
+                    <tr>
+                      <td><%= account[:name] %></td>
+                      <td class="text-end"><%= number_to_currency(account[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr class="table-primary">
+                    <td><strong>Total Assets</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:total_assets]) %></strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6">
+              <h4>Liabilities & Equity</h4>
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td colspan="2"><strong>Liabilities</strong></td>
+                  </tr>
+                  <% @report[:liabilities].each do |account| %>
+                    <tr>
+                      <td><%= account[:name] %></td>
+                      <td class="text-end"><%= number_to_currency(account[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td><strong>Total Liabilities</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:total_liabilities]) %></strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Equity</strong></td>
+                  </tr>
+                  <% @report[:equity].each do |account| %>
+                    <tr>
+                      <td><%= account[:name] %></td>
+                      <td class="text-end"><%= number_to_currency(account[:amount]) %></td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td><strong>Total Equity</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:total_equity]) %></strong></td>
+                  </tr>
+                  <tr class="table-primary">
+                    <td><strong>Total Liabilities & Equity</strong></td>
+                    <td class="text-end"><strong><%= number_to_currency(@report[:total_liabilities] + @report[:total_equity]) %></strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
