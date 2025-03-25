@@ -41,7 +41,7 @@
             <td class="px-6 py-4 text-sm text-gray-500"><%= item.description %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <% if item.item_type %>
-                <%= link_to item.item_type.name, item_type_path(item.item_type), class: "text-indigo-600 hover:text-indigo-900", data: { turbo: false, clickable_row_target: "link" } %>
+                <%= link_to item.item_type.name, admin_item_type_path(item.item_type), class: "text-indigo-600 hover:text-indigo-900", data: { turbo: false, clickable_row_target: "link" } %>
               <% else %>
                 <span class="text-gray-400">Not set</span>
               <% end %>
