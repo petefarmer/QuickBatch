@@ -1,0 +1,69 @@
+<%# EBITDA Report %>
+<div class="bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="px-4 py-5 sm:px-6 bg-gray-50">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      EBITDA Report
+      <span class="text-sm font-normal text-gray-500">
+        (<%= @start_date&.strftime('%B %d, %Y') %> - <%= @end_date&.strftime('%B %d, %Y') %>)
+      </span>
+    </h3>
+  </div>
+
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+    <%# Summary Section %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="bg-gray-50 rounded-lg p-4">
+        <h4 class="text-sm font-medium text-gray-500 mb-2">Revenue</h4>
+        <p class="text-2xl font-semibold text-gray-900"><%= number_to_currency(@report[:revenue]) %></p>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-4">
+        <h4 class="text-sm font-medium text-gray-500 mb-2">EBITDA</h4>
+        <p class="text-2xl font-semibold <%= @report[:ebitda] >= 0 ? 'text-green-600' : 'text-red-600' %>">
+          <%= number_to_currency(@report[:ebitda]) %>
+        </p>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-4">
+        <h4 class="text-sm font-medium text-gray-500 mb-2">Operating Expenses</h4>
+        <p class="text-2xl font-semibold text-gray-900"><%= number_to_currency(@report[:operating_expenses]) %></p>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-4">
+        <h4 class="text-sm font-medium text-gray-500 mb-2">EBITDA Margin</h4>
+        <p class="text-2xl font-semibold <%= @report[:ebitda_margin] >= 0 ? 'text-green-600' : 'text-red-600' %>">
+          <%= number_to_percentage(@report[:ebitda_margin], precision: 1) %>
+        </p>
+      </div>
+    </div>
+
+    <%# Revenue Breakdown %>
+    <div class="mb-8">
+      <h4 class="text-base font-semibold text-gray-900 mb-4">Revenue Breakdown</h4>
+      <div class="space-y-2">
+        <% @report[:revenue_breakdown].each do |item| %>
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex-1">
+              <span class="text-gray-600"><%= item[:name] %></span>
+              <span class="text-gray-400 ml-2">(<%= number_to_percentage(item[:percentage], precision: 1) %>)</span>
+            </div>
+            <span class="text-gray-900"><%= number_to_currency(item[:amount]) %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Expenses Breakdown %>
+    <div class="mb-8">
+      <h4 class="text-base font-semibold text-gray-900 mb-4">Operating Expenses Breakdown</h4>
+      <div class="space-y-2">
+        <% @report[:expenses_breakdown].each do |item| %>
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex-1">
+              <span class="text-gray-600"><%= item[:name] %></span>
+              <span class="text-gray-400 ml-2">(<%= number_to_percentage(item[:percentage], precision: 1) %>)</span>
+            </div>
+            <span class="text-gray-900"><%= number_to_currency(item[:amount]) %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 

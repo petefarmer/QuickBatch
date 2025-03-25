@@ -45,6 +45,11 @@ gem "thruster", require: false
 # Authentication
 gem "devise"
 
+# Background job processing
+gem "sidekiq"
+gem "sinatra", require: false # Required for Sidekiq web UI
+gem "rack-protection" # Required for Sinatra
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

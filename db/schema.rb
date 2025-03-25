@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_161413) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_211232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -93,6 +93,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_161413) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_eccn_keys_on_name", unique: true
+  end
+
+  create_table "financial_report_statuses", force: :cascade do |t|
+    t.string "report_type", null: false
+    t.string "period_type", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.string "status", null: false
+    t.integer "version", null: false
+    t.text "error_message"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "report_date", null: false
+    t.index ["completed_at"], name: "index_financial_report_statuses_on_completed_at"
+    t.index ["report_date"], name: "index_financial_report_statuses_on_report_date"
+    t.index ["report_type", "period_type", "start_date", "end_date", "version"], name: "idx_financial_report_statuses_unique_report", unique: true
+    t.index ["report_type", "status"], name: "idx_financial_report_statuses_type_status"
   end
 
   create_table "item_subtypes", force: :cascade do |t|

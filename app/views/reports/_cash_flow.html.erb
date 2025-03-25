@@ -1,0 +1,80 @@
+<%# Cash Flow Report %>
+<div class="bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="px-4 py-5 sm:px-6 bg-gray-50">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Cash Flow Statement
+      <span class="text-sm font-normal text-gray-500">
+        (<%= @start_date&.strftime('%B %d, %Y') %> - <%= @end_date&.strftime('%B %d, %Y') %>)
+      </span>
+    </h3>
+  </div>
+
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+    <%# Operating Activities %>
+    <div class="mb-8">
+      <h4 class="text-base font-semibold text-gray-900 mb-4">Operating Activities</h4>
+      <div class="space-y-2">
+        <% @report[:operating_activities].each do |activity| %>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600"><%= activity[:description] %></span>
+            <span class="text-gray-900"><%= number_to_currency(activity[:amount]) %></span>
+          </div>
+        <% end %>
+        <div class="flex justify-between font-semibold border-t border-gray-200 pt-2 mt-4">
+          <span>Net Cash from Operating Activities</span>
+          <span class="<%= @report[:net_operating_cash] >= 0 ? 'text-green-600' : 'text-red-600' %>">
+            <%= number_to_currency(@report[:net_operating_cash]) %>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <%# Investing Activities %>
+    <div class="mb-8">
+      <h4 class="text-base font-semibold text-gray-900 mb-4">Investing Activities</h4>
+      <div class="space-y-2">
+        <% @report[:investing_activities].each do |activity| %>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600"><%= activity[:description] %></span>
+            <span class="text-gray-900"><%= number_to_currency(activity[:amount]) %></span>
+          </div>
+        <% end %>
+        <div class="flex justify-between font-semibold border-t border-gray-200 pt-2 mt-4">
+          <span>Net Cash from Investing Activities</span>
+          <span class="<%= @report[:net_investing_cash] >= 0 ? 'text-green-600' : 'text-red-600' %>">
+            <%= number_to_currency(@report[:net_investing_cash]) %>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <%# Financing Activities %>
+    <div class="mb-8">
+      <h4 class="text-base font-semibold text-gray-900 mb-4">Financing Activities</h4>
+      <div class="space-y-2">
+        <% @report[:financing_activities].each do |activity| %>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600"><%= activity[:description] %></span>
+            <span class="text-gray-900"><%= number_to_currency(activity[:amount]) %></span>
+          </div>
+        <% end %>
+        <div class="flex justify-between font-semibold border-t border-gray-200 pt-2 mt-4">
+          <span>Net Cash from Financing Activities</span>
+          <span class="<%= @report[:net_financing_cash] >= 0 ? 'text-green-600' : 'text-red-600' %>">
+            <%= number_to_currency(@report[:net_financing_cash]) %>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <%# Net Change in Cash %>
+    <div class="border-t-2 border-gray-300 pt-4 mt-8">
+      <div class="flex justify-between font-semibold text-lg">
+        <span>Net Change in Cash</span>
+        <span class="<%= @report[:net_cash_change] >= 0 ? 'text-green-600' : 'text-red-600' %>">
+          <%= number_to_currency(@report[:net_cash_change]) %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div> 

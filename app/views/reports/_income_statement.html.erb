@@ -1,0 +1,57 @@
+<%# Income Statement Report %>
+<div class="bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="px-4 py-5 sm:px-6 bg-gray-50">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Income Statement
+      <span class="text-sm font-normal text-gray-500">
+        (<%= @start_date&.strftime('%B %d, %Y') %> - <%= @end_date&.strftime('%B %d, %Y') %>)
+      </span>
+    </h3>
+  </div>
+
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+    <%# Revenue Section %>
+    <div class="mb-8">
+      <h4 class="text-base font-semibold text-gray-900 mb-4">Revenue</h4>
+      <div class="space-y-2">
+        <% @report[:revenue].each do |item| %>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600"><%= item[:name] %></span>
+            <span class="text-gray-900"><%= number_to_currency(item[:amount]) %></span>
+          </div>
+        <% end %>
+        <div class="flex justify-between font-semibold border-t border-gray-200 pt-2 mt-4">
+          <span>Total Revenue</span>
+          <span><%= number_to_currency(@report[:total_revenue]) %></span>
+        </div>
+      </div>
+    </div>
+
+    <%# Expenses Section %>
+    <div class="mb-8">
+      <h4 class="text-base font-semibold text-gray-900 mb-4">Expenses</h4>
+      <div class="space-y-2">
+        <% @report[:expenses].each do |item| %>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600"><%= item[:name] %></span>
+            <span class="text-gray-900"><%= number_to_currency(item[:amount]) %></span>
+          </div>
+        <% end %>
+        <div class="flex justify-between font-semibold border-t border-gray-200 pt-2 mt-4">
+          <span>Total Expenses</span>
+          <span><%= number_to_currency(@report[:total_expenses]) %></span>
+        </div>
+      </div>
+    </div>
+
+    <%# Net Income %>
+    <div class="border-t-2 border-gray-300 pt-4 mt-8">
+      <div class="flex justify-between font-semibold text-lg">
+        <span>Net Income</span>
+        <span class="<%= @report[:net_income] >= 0 ? 'text-green-600' : 'text-red-600' %>">
+          <%= number_to_currency(@report[:net_income]) %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div> 

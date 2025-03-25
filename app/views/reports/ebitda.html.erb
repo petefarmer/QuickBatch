@@ -1,58 +1,181 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">EBITDA Report</h3>
-          <div class="card-tools">
-            <span class="text-muted">For the period <%= @start_date.strftime("%B %d, %Y") %> to <%= @end_date.strftime("%B %d, %Y") %></span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8 offset-md-2">
-              <table class="table table-sm">
-                <tbody>
-                  <tr>
-                    <td colspan="2"><strong>Revenue</strong></td>
-                  </tr>
-                  <% @report[:revenue].each do |account| %>
-                    <tr>
-                      <td><%= account[:name] %></td>
-                      <td class="text-end"><%= number_to_currency(account[:amount]) %></td>
-                    </tr>
-                  <% end %>
-                  <tr class="table-success">
-                    <td><strong>Total Revenue</strong></td>
-                    <td class="text-end"><strong><%= number_to_currency(@report[:total_revenue]) %></strong></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2"><strong>Operating Expenses</strong></td>
-                  </tr>
-                  <% @report[:operating_expenses].each do |account| %>
-                    <tr>
-                      <td><%= account[:name] %></td>
-                      <td class="text-end"><%= number_to_currency(account[:amount]) %></td>
-                    </tr>
-                  <% end %>
-                  <tr class="table-danger">
-                    <td><strong>Total Operating Expenses</strong></td>
-                    <td class="text-end"><strong><%= number_to_currency(@report[:total_operating_expenses]) %></strong></td>
-                  </tr>
-                  <tr class="table-primary">
-                    <td><strong>EBITDA</strong></td>
-                    <td class="text-end"><strong><%= number_to_currency(@report[:ebitda]) %></strong></td>
-                  </tr>
-                  <tr>
-                    <td><strong>EBITDA Margin</strong></td>
-                    <td class="text-end"><strong><%= number_to_percentage(@report[:ebitda_margin], precision: 2) %></strong></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+<div class="container mx-auto px-4 py-8">
+  <%# Date Range Selection %>
+  <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+    <%= form_tag ebitda_accounts_path, method: :get, class: "flex flex-wrap gap-4 items-end" do %>
+      <div>
+        <%= label_tag :start_date, "Start Date", class: "block text-sm font-medium text-gray-700" %>
+        <%= date_field_tag :start_date, @start_date, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+      </div>
+      <div>
+        <%= label_tag :end_date, "End Date", class: "block text-sm font-medium text-gray-700" %>
+        <%= date_field_tag :end_date, @end_date, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+      </div>
+      <div>
+        <%= submit_tag "Update Report", class: "bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md text-sm" %>
+      </div>
+      <div class="flex gap-2">
+        <%= link_to "This Month", ebitda_accounts_path(start_date: Date.current.beginning_of_month, end_date: Date.current), class: "bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md text-sm" %>
+        <%= link_to "This Quarter", ebitda_accounts_path(start_date: Date.current.beginning_of_quarter, end_date: Date.current), class: "bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md text-sm" %>
+        <%= link_to "This Year", ebitda_accounts_path(start_date: Date.current.beginning_of_year, end_date: Date.current), class: "bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md text-sm" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <%# Summary Card %>
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">EBITDA Summary</h1>
+        <p class="text-gray-600">
+          Period: <%= @start_date.strftime('%B %d, %Y') %> - <%= @end_date.strftime('%B %d, %Y') %>
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">Revenue</td>
+              <td class="px-6 py-4 text-sm text-gray-900 text-right"><%= number_to_currency(@report[:revenue]) %></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">Operating Expenses</td>
+              <td class="px-6 py-4 text-sm text-gray-900 text-right"><%= number_to_currency(@report[:operating_expenses]) %></td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-6 py-4 text-sm font-bold text-gray-900">EBITDA</td>
+              <td class="px-6 py-4 text-sm font-bold text-gray-900 text-right"><%= number_to_currency(@report[:ebitda]) %></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">EBITDA Margin</td>
+              <td class="px-6 py-4 text-sm text-gray-900 text-right"><%= number_to_percentage(@report[:ebitda_margin], precision: 2) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%# Chart Card %>
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">EBITDA Trend</h2>
+      <div id="ebitda-chart" class="h-64"></div>
+    </div>
+  </div>
+
+  <%# Detailed Breakdowns %>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+    <%# Revenue Breakdown %>
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">Revenue Breakdown</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Account</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">% of Revenue</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @report[:revenue_breakdown]&.each do |account| %>
+              <tr>
+                <td class="px-6 py-4 text-sm text-gray-900"><%= account[:name] %></td>
+                <td class="px-6 py-4 text-sm text-gray-900 text-right"><%= number_to_currency(account[:amount]) %></td>
+                <td class="px-6 py-4 text-sm text-gray-900 text-right"><%= number_to_percentage(account[:percentage], precision: 1) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%# Operating Expenses Breakdown %>
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">Operating Expenses Breakdown</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Account</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">% of Expenses</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @report[:expenses_breakdown]&.each do |account| %>
+              <tr>
+                <td class="px-6 py-4 text-sm text-gray-900"><%= account[:name] %></td>
+                <td class="px-6 py-4 text-sm text-gray-900 text-right"><%= number_to_currency(account[:amount]) %></td>
+                <td class="px-6 py-4 text-sm text-gray-900 text-right"><%= number_to_percentage(account[:percentage], precision: 1) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+
+  <%# Chart JavaScript %>
+  <% content_for :head do %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <% end %>
+
+  <% content_for :javascript do %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('ebitda-chart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: <%= raw @report[:trend_data]&.map { |d| d[:date].strftime('%b %Y') }.to_json %>,
+            datasets: [
+              {
+                label: 'Revenue',
+                data: <%= raw @report[:trend_data]&.map { |d| d[:revenue] }.to_json %>,
+                borderColor: 'rgb(59, 130, 246)',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true
+              },
+              {
+                label: 'EBITDA',
+                data: <%= raw @report[:trend_data]&.map { |d| d[:ebitda] }.to_json %>,
+                borderColor: 'rgb(16, 185, 129)',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Revenue & EBITDA Trend'
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return '$' + value.toLocaleString();
+                  }
+                }
+              }
+            }
+          }
+        });
+      });
+    </script>
+  <% end %>
 </div> 
