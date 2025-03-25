@@ -2,10 +2,14 @@ Rails.application.routes.draw do
   devise_for :users
   root "home#index"
 
+  concern :has_addresses do
+    resources :addresses, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  end
+
   # Core resources
   resources :items
   resources :customers do
-    resources :addresses
+    concerns :has_addresses
   end
   resources :sales_orders
   resources :purchase_orders
@@ -54,11 +58,11 @@ Rails.application.routes.draw do
 
   # Vendor and Supplier resources
   resources :vendors do
-    resources :addresses
+    concerns :has_addresses
   end
 
   resources :suppliers do
-    resources :addresses
+    concerns :has_addresses
   end
 
   # Health check
