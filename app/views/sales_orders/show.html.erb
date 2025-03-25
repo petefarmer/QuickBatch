@@ -48,10 +48,16 @@
                     </dd>
                   </div>
                   <div class="sm:col-span-1">
-                    <dt class="text-sm font-medium text-gray-500">Customer Name</dt>
-                    <dd class="mt-1 text-sm text-gray-900">
-                      <%= link_to @sales_order.customer.customer_name, customer_path(@sales_order.customer), class: "text-indigo-600 hover:text-indigo-900" %>
-                    </dd>
+                    <dt class="text-sm font-medium text-gray-500">Customer</dt>
+                    <dd class="mt-1 text-sm text-gray-900"><%= @sales_order.customer.customer_name %></dd>
+                  </div>
+                  <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Price</dt>
+                    <dd class="mt-1 text-sm text-gray-900"><%= number_to_currency(@sales_order.price) %></dd>
+                  </div>
+                  <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">Quantity</dt>
+                    <dd class="mt-1 text-sm text-gray-900"><%= @sales_order.quantity %></dd>
                   </div>
                 </dl>
               </div>

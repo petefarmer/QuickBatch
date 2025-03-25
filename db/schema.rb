@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_120023) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_150635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -167,11 +167,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_120023) do
   end
 
   create_table "sales_orders", force: :cascade do |t|
-    t.string "sales_order_number"
+    t.string "sales_order_number", default: -> { "nextval('sales_order_number_seq'::regclass)" }
     t.string "order_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "customer_id", null: false
+    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.integer "quantity", default: 0, null: false
     t.index ["customer_id"], name: "index_sales_orders_on_customer_id"
   end
 
